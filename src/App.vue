@@ -9,7 +9,12 @@
             <div class="content">
               <div class="field">
                 <p class="control has-icons-left has-icons-right">
-                  <input class="input" type="email" placeholder="Email" />
+                  <input
+                    class="input"
+                    type="text"
+                    placeholder="Nome"
+                    v-model="nomeField"
+                  />
                   <span class="icon is-small is-left">
                     <i class="fas fa-envelope"></i>
                   </span>
@@ -18,9 +23,29 @@
                   </span>
                 </p>
               </div>
+
               <div class="field">
                 <p class="control has-icons-left">
-                  <input class="input" type="password" placeholder="Password" />
+                  <input
+                    class="input"
+                    type="email"
+                    placeholder="E-mail"
+                    v-model="emailField"
+                  />
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-lock"></i>
+                  </span>
+                </p>
+              </div>
+
+              <div class="field">
+                <p class="control has-icons-left">
+                  <input
+                    class="input"
+                    type="number"
+                    placeholder="Idade"
+                    v-model="idadeField"
+                  />
                   <span class="icon is-small is-left">
                     <i class="fas fa-lock"></i>
                   </span>
@@ -28,8 +53,12 @@
               </div>
               <div class="field">
                 <p class="control">
-                  <button class="button is-success">Cadastrar</button>
-                  <button class="button is-success">Cancelar</button>
+                  <button class="button is-success" @click="cadastrarCliente()">
+                    Cadastrar
+                  </button>
+                  <button class="button is-success" @click="limparCampos()">
+                    Cancelar
+                  </button>
                 </p>
               </div>
             </div>
@@ -67,6 +96,10 @@ export default {
   name: "App",
   data() {
     return {
+      nomeField: "",
+      emailField: "",
+      idadeField: 0,
+
       clientes: [
         {
           nome: "Cliente 01",
@@ -78,6 +111,20 @@ export default {
   },
   components: {
     Cliente,
+  },
+  methods: {
+    cadastrarCliente: function () {
+      this.clientes.push({
+        id: Date.now(),
+        nome: this.nomeField,
+        email: this.emailField,
+        idade: this.idadeField,
+      });
+      this.limparCampos();
+    },
+    limparCampos: function () {
+      (this.nomeField = ""), (this.emailField = ""), (this.idadeField = 0);
+    },
   },
 };
 </script>
